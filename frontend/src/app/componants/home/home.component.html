@@ -1,0 +1,33 @@
+<div class="row g-5 position-relative">
+  <div class="col-4" *ngFor="let book of books">
+  <div class="card h-100 p-3">
+    <h2>{{book.title}}</h2>
+    <img class="img-fluid" src="http://localhost:3000/images/{{book.image}}" alt="book-image">
+    <div class="row my-3 text-center">
+      <div>
+        <h3>Author: {{book.author}}</h3>
+      </div>
+      <div>
+        <h3>Category: {{book.category}}</h3>
+      </div>
+    </div>
+    <div class="text-center">
+      <a routerLink="/books/single/{{book._id}}" class="btn btn-primary col-5 me-2 mb-2">View Details</a>
+      <a (click)="addCart(book._id)" class="btn btn-primary col-5 mb-2">Add To Cart</a>
+
+      <a *ngIf="userServices.user?.role == 'admin'" 
+      class="btn btn-primary col-5 me-2 mb-2" routerLink="/books/update/{{book._id}}">Update</a>
+
+      <a *ngIf="userServices.user?.role == 'admin'" 
+      class="btn btn-primary col-5 mb-2" (click)="top(book._id)" >Delete</a>
+
+    </div>
+  </div>
+    
+  </div>
+  <div class="deleteDialogue text-center w-50 p-5" *ngIf="deleteDialogue">
+    <h4>Are You Sure You want to delete this item?</h4>
+    <button (click)="deleteBook()" class="me-3">Ok</button>
+    <button (click)="deleteDialogue=!deleteDialogue">Cancel</button>
+  </div>
+</div>
